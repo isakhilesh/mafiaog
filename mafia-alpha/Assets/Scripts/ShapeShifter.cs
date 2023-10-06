@@ -35,14 +35,13 @@ public class ShapeShifter : MonoBehaviour
         }
         else
         {
-            float circleScale = 0.5f; // Adjust this value as needed
+            float circleScale = 0.5f; 
             transform.localScale = new Vector3(originalScale.x * circleScale, originalScale.x * circleScale, originalScale.z);
             isCircle = true;
         }
 
         yield return new WaitForSeconds(5);
 
-        // Revert back to original shape
         transform.localScale = originalScale;
         isRectangle = false;
         isCircle = false;
