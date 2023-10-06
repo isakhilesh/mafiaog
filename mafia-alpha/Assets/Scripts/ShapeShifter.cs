@@ -17,37 +17,34 @@ public class ShapeShifter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            isRectangle = !isRectangle;
-            if (isRectangle)
-            {
-                // Change the square to a rectangle by modifying the scale
-                transform.localScale = new Vector3(originalScale.x * 0.5f, originalScale.y * 0.15f, originalScale.z);
-            }
-            else
-            {
-                // Change it back to a square
-                transform.localScale = originalScale;
-            }
+            StartCoroutine(ShiftShapeCoroutine(true));
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            // Turn the square into a circle by setting both X and Y scales to the same value
-            isCircle = !isCircle;
-            float circleScale = 0.5f; // Adjust this value as needed
-
-           
-
-            if (isRectangle)
-            {
-                // Change the square to a circle by modifying the scale
-                transform.localScale = new Vector3(originalScale.x * circleScale, originalScale.x * circleScale, originalScale.z);
-            }
-            else
-            {
-                // Change it back to a square
-                transform.localScale = originalScale;
-            }
+            StartCoroutine(ShiftShapeCoroutine(false));
         }
+    }
+
+    private IEnumerator ShiftShapeCoroutine(bool toRectangle)
+    {
+        if (toRectangle)
+        {
+            transform.localScale = new Vector3(originalScale.x * 0.5f, originalScale.y * 0.15f, originalScale.z);
+            isRectangle = true;
+        }
+        else
+        {
+            float circleScale = 0.5f; // Adjust this value as needed
+            transform.localScale = new Vector3(originalScale.x * circleScale, originalScale.x * circleScale, originalScale.z);
+            isCircle = true;
+        }
+
+        yield return new WaitForSeconds(5);
+
+        // Revert back to original shape
+        transform.localScale = originalScale;
+        isRectangle = false;
+        isCircle = false;
     }
 }
