@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f; // Adjust the speed as needed.
     private Rigidbody2D rb;
+
+    private bool isGameOver = false;
 
     private void Start()
     {
@@ -29,4 +32,16 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+	private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Door")) 
+        {
+            isGameOver = true;
+            Time.timeScale = 0; // Pause the game by setting the time scale to 0.
+        }
+    }
+
+    
+
 }
