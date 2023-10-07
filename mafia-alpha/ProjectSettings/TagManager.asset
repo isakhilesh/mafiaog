@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Door
   - enemy
+  - GameManager
+  - Pillar
   layers:
   - Default
   - TransparentFX
