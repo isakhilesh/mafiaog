@@ -20,4 +20,13 @@ public class PlayerController : MonoBehaviour
         // Apply the movement to the Rigidbody.
         rb.velocity = new Vector2(movement.x, rb.velocity.y);
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Check if the collision is with an enemy object.
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            // Destroy the enemy object when the player touches it.
+            Destroy(collision.gameObject);
+        }
+    }
 }
