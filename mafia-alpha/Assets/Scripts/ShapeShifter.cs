@@ -30,7 +30,7 @@ public class ShapeShifter : MonoBehaviour
     {
         if (toRectangle)
         {
-            transform.localScale = new Vector3(originalScale.x * 0.5f, originalScale.y * 0.15f, originalScale.z);
+            transform.localScale = new Vector3(3f, 0.75f, originalScale.z);
             isRectangle = true;
         }
         else
