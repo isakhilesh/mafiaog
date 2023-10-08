@@ -32,7 +32,9 @@ public class CircleSprite : MonoBehaviour
         if (isSquare)
         {
             // Switch to a circle
-            transform.localScale = new Vector3(originalScale.x * 0.5f, originalScale.y * 0.5f, originalScale.z);
+
+            float circleScale = Mathf.Max(originalScale.x, originalScale.y);
+            transform.localScale = new Vector3(circleScale, circleScale, originalScale.z);
             spriteRenderer.sprite = circleSprite;
         }
         else
