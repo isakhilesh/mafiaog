@@ -6,7 +6,7 @@ public class ShapeShifter : MonoBehaviour
 {
     private Vector3 originalScale;
     private bool isRectangle = false;
-    private bool isCircle = false;
+
 
     private void Start()
     {
@@ -20,10 +20,7 @@ public class ShapeShifter : MonoBehaviour
             StartCoroutine(ShiftShapeCoroutine(true));
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            StartCoroutine(ShiftShapeCoroutine(false));
-        }
+
     }
 
     private IEnumerator ShiftShapeCoroutine(bool toRectangle)
@@ -33,17 +30,12 @@ public class ShapeShifter : MonoBehaviour
             transform.localScale = new Vector3(3f, 0.75f, originalScale.z);
             isRectangle = true;
         }
-        else
-        {
-            float circleScale = 0.5f; 
-            transform.localScale = new Vector3(originalScale.x * circleScale, originalScale.x * circleScale, originalScale.z);
-            isCircle = true;
-        }
+       
 
         yield return new WaitForSeconds(5);
 
         transform.localScale = originalScale;
         isRectangle = false;
-        isCircle = false;
+
     }
 }
