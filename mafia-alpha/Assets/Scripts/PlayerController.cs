@@ -9,11 +9,18 @@ public class PlayerController : MonoBehaviour
 
     private bool isGameWin = false;
     private bool isPlayerCrashPillar = false;
+    private bool hasKey = false;
+
+    private GameObject keyObject;
+    private bool isPullingKey = false;
+    private float pullForce = 10f; 
+    private float pullDistance = 10f; 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
+        keyObject = GameObject.FindGameObjectWithTag("Key");
 
     }
 
@@ -26,7 +33,29 @@ public class PlayerController : MonoBehaviour
 
         // Apply the movement to the Rigidbody.
         rb.velocity = new Vector2(movement.x, rb.velocity.y);
+
+        if (Input.GetKeyDown(KeyCode.P) && keyObject != null && Vector2.Distance(transform.position, keyObject.transform.position) <= pullDistance)
+        {
+            isPullingKey = true;
+        }
+
+        // If the player is pulling the key, apply the pulling force.
+        if (isPullingKey)
+        {
+            PullKey();
+        }
     }
+
+    private void PullKey()
+    {
+        if (keyObject != null)
+        {
+            Vector2 direction = (transform.position - keyObject.transform.position).normalized;
+            keyObject.GetComponent<Rigidbody2D>().AddForce(direction * pullForce);
+        }
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the collision is with an enemy object.
@@ -40,7 +69,12 @@ public class PlayerController : MonoBehaviour
             // Destroy the enemy object when the player touches it.
             Destroy(collision.gameObject);
         }
-        if(collision.gameObject.CompareTag("Door") && !isGameWin)
+        if (collision.gameObject.CompareTag("Key"))
+        {
+            Destroy(collision.gameObject);
+            hasKey = true;
+        }
+        if(collision.gameObject.CompareTag("Door") && !isGameWin && hasKey)
         {
             isGameWin = true;
             gameManager.GameOver();
@@ -50,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Door")) 
+        if (collision.CompareTag("Door") && hasKey) 
         {
             isGameWin = true;
             Time.timeScale = 0; // Pause the game by setting the time scale to 0.

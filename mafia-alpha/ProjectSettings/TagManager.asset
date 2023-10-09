@@ -8,6 +8,7 @@ TagManager:
   - enemy
   - GameManager
   - Pillar
+  - Key
   layers:
   - Default
   - TransparentFX
