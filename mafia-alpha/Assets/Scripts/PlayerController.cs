@@ -6,18 +6,16 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f; // Adjust the speed as needed.
     private Rigidbody2D rb;
     private GameManager gameManager;
-    private GameObject keyObject;
 
     private bool isGameWin = false;
     private bool isPlayerCrashPillar = false;
     private bool hasKey = false;
 
-    
+    private GameObject keyObject;
     private bool isPullingKey = false;
     private float pullForce = 10f; 
-    private float pullDistance = 10f; 
+    private float pullDistance = 10f;
     private float horizontalInput;
-
 
     private void Start()
     {
@@ -27,9 +25,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public float getHorizontalInput()
+    {
+        return horizontalInput;
+    }
     private void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxis("Horizontal");
 
         // Calculate the movement vector.
         Vector2 movement = new Vector2(horizontalInput, 0f) * moveSpeed;
@@ -49,10 +51,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public float getHorizontalInput()
-    {
-        return horizontalInput;
-    }
     private void PullKey()
     {
         if (keyObject != null)

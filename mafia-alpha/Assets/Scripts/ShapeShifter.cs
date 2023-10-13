@@ -5,10 +5,11 @@ using UnityEngine;
 public class ShapeShifter : MonoBehaviour
 {
     private Vector3 originalScale;
-    private bool isRectangle = false;
-
     private Rigidbody2D rb;
     private Vector2 originalGravity;
+
+    private bool isRectangle = false;
+
     private float gravityChangeTime = 0.0f; // Variable to track time of gravity change
     private float gravityChangeDuration = 5.0f;
     public float moveSpeed = 5.0f; // Adjust this speed as needed
@@ -29,6 +30,7 @@ public class ShapeShifter : MonoBehaviour
         {
             StartCoroutine(ShiftShapeCoroutine(true));
         }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             // Change the gravity direction to the opposite direction
@@ -45,8 +47,6 @@ public class ShapeShifter : MonoBehaviour
         Vector2 moveDirection = new Vector2(horizontalInput, 0);
 
         rb.AddForce(moveDirection * moveSpeed);
-
-
 
     }
 
