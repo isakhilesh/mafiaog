@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGameWin = false;
     private bool isPlayerCrashPillar = false;
+    private bool isPlayerKilledByEnemy= false;
     private bool hasKey = false;
 
     private GameObject keyObject;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private float pullForce = 10f; 
     private float pullDistance = 10f;
     private float horizontalInput;
+    private CircleSprite circleSprite;
 
     private void Start()
     {
@@ -69,10 +71,10 @@ public class PlayerController : MonoBehaviour
             isPlayerCrashPillar = true;
             gameManager.GameOver();
         }
-        if (collision.gameObject.CompareTag("enemy"))
+        if (collision.gameObject.CompareTag("enemy") && !circleSprite.isCircle())
         {
-            // Destroy the enemy object when the player touches it.
-            Destroy(collision.gameObject);
+            isPlayerKilledByEnemy = true;
+            Time.timeScale = 0;
         }
         if (collision.gameObject.CompareTag("Key"))
         {
@@ -135,7 +137,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (isPlayerCrashPillar)
+        if (isPlayerCrashPillar || isPlayerKilledByEnemy)
         {
             // Define the position and size of the "Game Over" message
             Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50);
@@ -146,7 +148,15 @@ public class PlayerController : MonoBehaviour
             style.alignment = TextAnchor.MiddleCenter;
 
             // Display the "Game Over" message
-            GUI.Label(gameOverRect, "You crashed into the Pillar, YOU LOSE!!", style);
+            if (isPlayerCrashPillar)
+            {
+                GUI.Label(gameOverRect, "You crashed into the Pillar, YOU LOSE!!", style);
+            }
+
+            if (isPlayerKilledByEnemy)
+            {
+                GUI.Label(gameOverRect, "You were killed by the enemy, YOU LOSE!!", style);
+            }
 
             if (gameManager != null)
             {

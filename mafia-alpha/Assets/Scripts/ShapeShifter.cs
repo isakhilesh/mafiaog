@@ -59,7 +59,7 @@ public class ShapeShifter : MonoBehaviour
         }
        
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         transform.localScale = originalScale;
         isRectangle = false;
