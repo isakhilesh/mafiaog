@@ -7,29 +7,45 @@ using UnityEngine.Networking;
 public class SendToGoogleForm : MonoBehaviour
 {
     [SerializeField] private string URL;
-    private long _sessionID;
-    private int _testInt;
+    private double _sessionID;
+    private double _testInt;
     private bool _testBool;
     private float _testFloat;
-
+    public PlayerController playerController;
+    public bool flag = true;
+    private long _startTime;
     // Start is called before the first frame update
     void Start()
     {
         // Call the Send method when the script starts
-        Send();
+        
+        playerController = GetComponent<PlayerController>();
     }
 
     private void Awake()
     {
         // Assign sessionID to identify playtests
         URL = "https://docs.google.com/forms/u/1/d/e/1FAIpQLScsFVmridEbsmLLd_ZThAOEhVnJxYfSt-QE35YSc5p58MIAHg/formResponse";
-        _sessionID = DateTime.Now.Ticks;
+        _startTime = DateTime.Now.Ticks;
+
+    }
+    private void Update()
+    {
+        if (playerController.getHasKey() && flag)
+        {
+            Debug.Log("in if");
+            
+            _testInt = TimeSpan.FromTicks(DateTime.Now.Ticks - _startTime).TotalSeconds;
+
+            Send();
+            flag = false;
+        }
     }
 
     public void Send()
     {
         // Assign variables
-        _testInt = UnityEngine.Random.Range(0, 101);
+        _sessionID = DateTime.Now.Ticks;
         _testBool = true;
         _testFloat = UnityEngine.Random.Range(0.0f, 10.0f);
         // Create a dictionary to store the form fields and values
