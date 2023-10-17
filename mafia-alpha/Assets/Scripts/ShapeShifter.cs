@@ -14,7 +14,9 @@ public class ShapeShifter : MonoBehaviour
     private float gravityChangeDuration = 5.0f;
     public float moveSpeed = 5.0f; // Adjust this speed as needed
 
+
     private PlayerController playerController;
+    private ProgressBarUpdate progressBarUpdate;
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class ShapeShifter : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         originalGravity = Physics2D.gravity;
         playerController = GetComponent<PlayerController>();
+        progressBarUpdate = GetComponent<ProgressBarUpdate>();
     }
 
     private void Update()
@@ -36,17 +39,21 @@ public class ShapeShifter : MonoBehaviour
             // Change the gravity direction to the opposite direction
             Physics2D.gravity = -Physics2D.gravity;
             gravityChangeTime = Time.time; // Record the time of gravity change
+            progressBarUpdate.StartDecreasing();
+
         }
 
         // Check if it's time to return gravity to normal
-        if (Time.time - gravityChangeTime >= gravityChangeDuration)
+        if (progressBarUpdate.IsDecreasing() == false)
         {
             Physics2D.gravity = originalGravity; // Restore the original gravity
         }
+
         float horizontalInput = playerController.getHorizontalInput();
         Vector2 moveDirection = new Vector2(horizontalInput, 0);
 
         rb.AddForce(moveDirection * moveSpeed);
+        
 
     }
 
