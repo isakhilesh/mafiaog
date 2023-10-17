@@ -11,7 +11,7 @@ public class ShapeShifter : MonoBehaviour
     private bool isRectangle = false;
 
     private float gravityChangeTime = 0.0f; // Variable to track time of gravity change
-    private float gravityChangeDuration = 5.0f;
+    public float gravityChangeDuration = 2.0f;
     public float moveSpeed = 5.0f; // Adjust this speed as needed
 
 
@@ -66,7 +66,7 @@ public class ShapeShifter : MonoBehaviour
         }
        
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
 
         transform.localScale = originalScale;
         isRectangle = false;

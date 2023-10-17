@@ -27,6 +27,11 @@ public class CircleSprite : MonoBehaviour
         }
     }
 
+    public bool isCircle()
+    {
+        return !isSquare;
+    }
+
     private void ToggleShape()
     {
         if (isSquare)
@@ -48,6 +53,18 @@ public class CircleSprite : MonoBehaviour
 
         // Start a coroutine to revert the shape to square after 5 seconds
         StartCoroutine(RevertToSquareAfterDelay(5f));
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("enemy"))
+        {
+            // Destroy the enemy object when the player touches it.
+            if (!isSquare)
+            {
+                Destroy(collision.gameObject);
+            }
+        }
     }
 
     private IEnumerator RevertToSquareAfterDelay(float delay)
