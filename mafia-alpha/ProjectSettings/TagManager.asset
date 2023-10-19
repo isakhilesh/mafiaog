@@ -9,6 +9,12 @@ TagManager:
   - GameManager
   - Pillar
   - Key
+<<<<<<< Updated upstream
+=======
+  - Magnet
+  - LaserObstacle
+  - dog
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX

@@ -69,6 +69,12 @@ public class PlayerController : MonoBehaviour
             // Destroy the enemy object when the player touches it.
             Destroy(collision.gameObject);
         }
+        if (collision.gameObject.CompareTag("dog"))
+        {
+            isPlayerKilledByEnemy = true;
+            gameOver = true;
+            Time.timeScale = 0;
+        }
         if (collision.gameObject.CompareTag("Key"))
         {
             Destroy(collision.gameObject);
@@ -80,6 +86,7 @@ public class PlayerController : MonoBehaviour
             gameManager.GameOver();
 
         }
+
     }
 
 	private void OnTriggerEnter2D(Collider2D collision)
