@@ -18,13 +18,13 @@ public class PlayerController : MonoBehaviour
     private float pullDistance = 10f;
     private float horizontalInput;
     private CircleSprite circleSprite;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         keyObject = GameObject.FindGameObjectWithTag("Key");
-
+        circleSprite = GetComponent<CircleSprite>(); // Assign the CircleSprite component here.
+        
     }
     public bool getHasKey()
     {
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
             isPlayerCrashPillar = true;
             gameManager.GameOver();
         }
-        if (collision.gameObject.CompareTag("enemy") && !circleSprite.isCircle())
+        if (collision.gameObject.CompareTag("enemy") && !circleSprite.checkCircle())
         {
             isPlayerKilledByEnemy = true;
             Time.timeScale = 0;
@@ -106,13 +106,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-        private void OnGUI()
+    private void OnGUI()
     {
         if (isGameWin)
         {
             DisplayGameOverMessage("YOU WIN!!");
         }
-
+        
         if (isPlayerCrashPillar)
         {
             DisplayGameOverMessage("You crashed into the Pillar, YOU LOSE!!");
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void DisplayGameOverMessage(string message)
+    public void DisplayGameOverMessage(string message)
     {
         Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50);
 
