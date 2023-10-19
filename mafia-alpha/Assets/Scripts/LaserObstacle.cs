@@ -19,7 +19,7 @@ public class LaserObstacle : MonoBehaviour
     private float laserTimer = 5.0f; // Time interval to activate/deactivate the laser
 
     private bool isLaserTouched = false;
-
+    public bool gameOver = false;
     private PlayerController playerController;
     private void Awake()
     {
@@ -95,9 +95,14 @@ public class LaserObstacle : MonoBehaviour
 
     void OnGUI(){
         if(isLaserTouched){
-
+            gameOver = true;
             playerController.DisplayGameOverMessage("You were burned by the Laser! YOU LOSE!!");
         }
+    }
+
+    public bool isGameOver()
+    {
+        return gameOver;
     }
     
 

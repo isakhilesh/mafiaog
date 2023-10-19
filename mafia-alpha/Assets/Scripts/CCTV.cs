@@ -17,6 +17,7 @@ public class CCTV : MonoBehaviour
     private PlayerController playerController;
     private GameManager gameManager;
     private bool isLaserTouched = false;
+    public bool gameOver = false;
 
     private void Awake()
     {
@@ -74,9 +75,17 @@ public class CCTV : MonoBehaviour
     void OnGUI(){
         if(isLaserTouched){
 
+            gameOver = true;
             playerController.DisplayGameOverMessage("You were caught by the CCTV! YOU LOSE!!");
         }
     }
+
+
+    public bool isGameOver()
+    {
+        return gameOver;
+    }
+
     void Draw2DRay(Vector2 startpos, Vector2 endpos)
     {
         m_LR.SetPosition(0, startpos);

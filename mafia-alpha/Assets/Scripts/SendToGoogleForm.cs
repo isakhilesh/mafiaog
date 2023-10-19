@@ -15,6 +15,8 @@ public class SendToGoogleForm : MonoBehaviour
     public bool flag = true;
     public bool flagGameOver = true;
     private long _startTime;
+    public LaserObstacle laserObstacle;
+    public CCTV cctv;
 
     private long _idleStartTime = 0;
     private double _totalIdleTime = 0;
@@ -22,7 +24,8 @@ public class SendToGoogleForm : MonoBehaviour
     void Start()
     {
         // Call the Send method when the script starts
-        
+        cctv = GameObject.FindObjectOfType<CCTV>();
+        laserObstacle = GameObject.FindObjectOfType<LaserObstacle>();
         playerController = GetComponent<PlayerController>();
         _idleStartTime = DateTime.Now.Ticks;
         _totalIdleTime = 0;
@@ -44,7 +47,7 @@ public class SendToGoogleForm : MonoBehaviour
             flag = false;
         }
 
-        if (playerController.isGameOver() == true && flagGameOver)
+        if ((playerController.isGameOver() == true || laserObstacle.isGameOver() == true || cctv.isGameOver() == true)  && flagGameOver)
         {
             Send();
             flagGameOver = false;
