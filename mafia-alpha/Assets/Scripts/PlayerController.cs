@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     private float pullDistance = 10f;
     private float horizontalInput;
     private CircleSprite circleSprite;
+
+    private bool gameOver = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
