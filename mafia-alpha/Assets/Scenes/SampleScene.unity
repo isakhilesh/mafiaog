@@ -1086,13 +1086,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a0f8c0844839c84982e0adc56102f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1194860092}
-  offset: {x: 0, y: 5, z: -30}
+  offset: {x: 3, y: -5, z: -20}
 --- !u!1 &521260871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,6 +1316,7 @@ MonoBehaviour:
   m_LR: {fileID: 552739942}
   rotationSpeed: 0
   rotationInterval: 0
+  gameOver: 0
 --- !u!120 &552739942 stripped
 LineRenderer:
   m_CorrespondingSourceObject: {fileID: 8286468396825090910, guid: 0a81ffc14cf03394f96eae89232f9e96, type: 3}
@@ -2485,6 +2486,8 @@ MonoBehaviour:
   playerController: {fileID: 1194860094}
   flag: 1
   flagGameOver: 1
+  laserObstacle: {fileID: 0}
+  cctv: {fileID: 0}
 --- !u!114 &1194860099
 MonoBehaviour:
   m_ObjectHideFlags: 0
