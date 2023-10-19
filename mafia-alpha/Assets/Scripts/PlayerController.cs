@@ -83,6 +83,12 @@ public class PlayerController : MonoBehaviour
             gameOver = true;
             Time.timeScale = 0;
         }
+        if (collision.gameObject.CompareTag("dog"))
+        {
+            isPlayerKilledByEnemy = true;
+            gameOver = true;
+            Time.timeScale = 0;
+        }
         if (collision.gameObject.CompareTag("Key"))
         {
             Destroy(collision.gameObject);

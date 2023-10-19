@@ -26,7 +26,7 @@ public class CCTV : MonoBehaviour
     private void Start()
     {
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-
+        Time.timeScale = 1;
         // Find the PlayerController component in the scene and set the reference.
         playerController = GameObject.FindObjectOfType<PlayerController>();
     }
@@ -63,7 +63,8 @@ public class CCTV : MonoBehaviour
             
             if (_hit.collider.CompareTag("Player"))
             {
-                isLaserTouched = true;    
+                isLaserTouched = true;
+                Time.timeScale = 0;
             }
         }
         else

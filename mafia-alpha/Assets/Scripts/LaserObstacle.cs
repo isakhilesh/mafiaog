@@ -28,7 +28,7 @@ public class LaserObstacle : MonoBehaviour
     private void Start()
     {
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
-
+        Time.timeScale = 1;
         // Find the PlayerController component in the scene and set the reference.
         playerController = GameObject.FindObjectOfType<PlayerController>();
     }
@@ -97,6 +97,7 @@ public class LaserObstacle : MonoBehaviour
         if(isLaserTouched){
             gameOver = true;
             playerController.DisplayGameOverMessage("You were burned by the Laser! YOU LOSE!!");
+            Time.timeScale = 0;
         }
     }
 
