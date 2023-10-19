@@ -30,7 +30,6 @@ public class ProgressBarUpdate : MonoBehaviour
             }
             // Calculate the fill amount as a ratio of remaining time to decrease duration
              
-            Debug.Log("time" + fillAmount);
             // Ensure that fillAmount doesn't go below 0
             fillAmount = Mathf.Clamp01(fillAmount);
 
@@ -50,7 +49,6 @@ public class ProgressBarUpdate : MonoBehaviour
 
     public void StartDecreasing()
     {
-        Debug.Log("Started Decresing");
         isDecreasing = !isDecreasing;
     }
 
