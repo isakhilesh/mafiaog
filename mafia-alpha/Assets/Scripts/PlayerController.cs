@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-       private void OnGUI()
+    private void OnGUI()
     {
         if (isGameWin)
         {
