@@ -1613,6 +1613,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CCTV (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8286468396825090905, guid: 0a81ffc14cf03394f96eae89232f9e96, type: 3}
+      propertyPath: m_TagString
+      value: LaserObstacle
+      objectReference: {fileID: 0}
     - target: {fileID: 8286468396825090909, guid: 0a81ffc14cf03394f96eae89232f9e96, type: 3}
       propertyPath: m_RootOrder
       value: 1

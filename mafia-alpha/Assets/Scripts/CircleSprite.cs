@@ -6,6 +6,8 @@ public class CircleSprite : MonoBehaviour
 {
     private Vector3 originalScale;
     private bool isSquare = true; // Start as a square
+    private bool isCircle = false; // Start as a square
+
     private SpriteRenderer spriteRenderer;
     public Sprite squareSprite; // Assign the square sprite in the Unity Inspector
     public Sprite circleSprite;
@@ -23,24 +25,27 @@ public class CircleSprite : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
+            isCircle = true;
             ToggleShape();
+
         }
     }
 
-    public bool isCircle()
+    public bool checkCircle()
     {
         return !isSquare;
     }
 
     private void ToggleShape()
     {
-        if (isSquare)
+        if (isCircle)
         {
             // Switch to a circle
 
             float circleScale = Mathf.Max(originalScale.x, originalScale.y);
             transform.localScale = new Vector3(circleScale, circleScale, originalScale.z);
             spriteRenderer.sprite = circleSprite;
+            isSquare = false; 
         }
         else
         {
@@ -49,10 +54,9 @@ public class CircleSprite : MonoBehaviour
             spriteRenderer.sprite = squareSprite;
         }
 
-        isSquare = !isSquare; // Toggle the shape
 
-        // Start a coroutine to revert the shape to square after 5 seconds
-        StartCoroutine(RevertToSquareAfterDelay(5f));
+        // Start a coroutine to revert the shape to square after 3 seconds
+        StartCoroutine(RevertToSquareAfterDelay(3f));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
