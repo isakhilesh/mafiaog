@@ -10,6 +10,8 @@ public class ShapeShifter : MonoBehaviour
 
     private bool isRectangle = false;
 
+    private int rectCount = 0;
+   
     private float gravityChangeTime = 0.0f; // Variable to track time of gravity change
     public float gravityChangeDuration = 2.0f;
     public float moveSpeed = 5.0f; // Adjust this speed as needed
@@ -31,6 +33,7 @@ public class ShapeShifter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            rectCount += 1;
             StartCoroutine(ShiftShapeCoroutine(true));
         }
 
@@ -56,6 +59,10 @@ public class ShapeShifter : MonoBehaviour
 
     }
 
+    public int getRectcount()
+    {
+        return rectCount;
+    }
     private IEnumerator ShiftShapeCoroutine(bool toRectangle)
     {
         if (toRectangle)

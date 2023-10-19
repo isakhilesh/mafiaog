@@ -11,15 +11,33 @@ public class SendToGoogleForm : MonoBehaviour
     private double _testInt;
     private bool _testBool;
     private float _testFloat;
+
     public PlayerController playerController;
+    public ShapeShifter shapeShifter;
+    public CircleSprite circleSprite;
+    public ProgressBarUpdate progressBarUpdate;
+
     public bool flag = true;
+    public bool flagGameOver = true;
     private long _startTime;
+    public LaserObstacle laserObstacle;
+    public CCTV cctv;
+
+    private long _idleStartTime = 0;
+    private double _totalIdleTime = 0;
     // Start is called before the first frame update
     void Start()
     {
         // Call the Send method when the script starts
-        
+        cctv = GameObject.FindObjectOfType<CCTV>();
+        laserObstacle = GameObject.FindObjectOfType<LaserObstacle>();
         playerController = GetComponent<PlayerController>();
+        shapeShifter = GetComponent<ShapeShifter>();
+        circleSprite = GetComponent<CircleSprite>();
+        progressBarUpdate = GetComponent<ProgressBarUpdate>();
+
+        _idleStartTime = DateTime.Now.Ticks;
+        _totalIdleTime = 0;
     }
 
     private void Awake()
@@ -33,12 +51,21 @@ public class SendToGoogleForm : MonoBehaviour
     {
         if (playerController.getHasKey() && flag)
         {
-            Debug.Log("in if");
-            
             _testInt = TimeSpan.FromTicks(DateTime.Now.Ticks - _startTime).TotalSeconds;
 
-            Send();
             flag = false;
+        }
+
+        if ((playerController.isGameOver() == true || laserObstacle.isGameOver() == true || cctv.isGameOver() == true)  && flagGameOver)
+        {
+            Send();
+            flagGameOver = false;
+        }
+
+        if (!Input.anyKey && playerController.isGameOver() == false)
+        {
+            Debug.Log("idle!");
+            _totalIdleTime += Time.deltaTime;
         }
     }
 
@@ -48,12 +75,32 @@ public class SendToGoogleForm : MonoBehaviour
         _sessionID = DateTime.Now.Ticks;
         _testBool = true;
         _testFloat = UnityEngine.Random.Range(0.0f, 10.0f);
+
+        if (_testInt == 0)
+        {
+            _testInt = -1;
+        }
+
         // Create a dictionary to store the form fields and values
         Dictionary<string, string> formData = new Dictionary<string, string>();
         formData["entry.123182976"] = _sessionID.ToString(); // Replace 'entry.123456' with the actual form field name from your Google Form
+        //TimetoKey
         formData["entry.1350690521"] = _testInt.ToString();     // Replace 'entry.789012' with the actual form field name
-        formData["entry.462554948"] = _testBool.ToString();     // Replace 'entry.345678' with the actual form field name
-        formData["entry.475182497"] = _testFloat.ToString();    // Replace 'entry.901234' with the actual form field name
+
+
+        //Rectangle analytics
+        //formData["entry.462554948"] = shapeShifter.getRectcount().ToString();     // Replace 'entry.345678' with the actual form field name
+
+        //Circle analytics
+        //formData["entry.462554948"] = circleSprite.getCircount().ToString();     
+
+        //AntiGravity analysis
+        formData["entry.462554948"] = progressBarUpdate.getTimeUsed().ToString();
+
+
+        //idleTime
+        formData["entry.475182497"] = _totalIdleTime.ToString();    // Replace 'entry.901234' with the actual form field name
+
         StartCoroutine(Post(URL, formData));
     }
 

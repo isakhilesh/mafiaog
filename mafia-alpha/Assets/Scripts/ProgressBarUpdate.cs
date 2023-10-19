@@ -46,6 +46,10 @@ public class ProgressBarUpdate : MonoBehaviour
         }
     }
 
+    public float getTimeUsed()
+    {
+        return currentTime;
+    }
 
     public void StartDecreasing()
     {

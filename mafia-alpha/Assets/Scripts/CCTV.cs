@@ -14,12 +14,22 @@ public class CCTV : MonoBehaviour
     public float rotationInterval = 3.0f; // Interval to change rotation direction
     private bool rotateLeft = true;
     private float timeSinceLastRotation = 0.0f;
+    private PlayerController playerController;
+    private GameManager gameManager;
+    private bool isLaserTouched = false;
+    public bool gameOver = false;
 
     private void Awake()
     {
         m_transform = transform;
     }
+    private void Start()
+    {
+        gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
+        // Find the PlayerController component in the scene and set the reference.
+        playerController = GameObject.FindObjectOfType<PlayerController>();
+    }
     private void Update()
     {
         ShootLaser();
@@ -50,17 +60,30 @@ public class CCTV : MonoBehaviour
         {
             RaycastHit2D _hit = Physics2D.Raycast(CCTVH.position, -transform.up);
             Draw2DRay(CCTVH.position, _hit.point);
-            // if (_hit.collider.CompareTag("Player"))
-            //{
-            // Game over logic here (e.g., display game over screen or restart the level)
-            //  Debug.Log("Game Over");
-            // You can add game over logic here, such as displaying a game over screen, resetting the level, or ending the game.
-            // }
+            
+            if (_hit.collider.CompareTag("Player"))
+            {
+                isLaserTouched = true;    
+            }
         }
         else
         {
             Draw2DRay(CCTVH.position, CCTVH.position - transform.up * defDRay);
         }
+    }
+
+    void OnGUI(){
+        if(isLaserTouched){
+
+            gameOver = true;
+            playerController.DisplayGameOverMessage("You were caught by the CCTV! YOU LOSE!!");
+        }
+    }
+
+
+    public bool isGameOver()
+    {
+        return gameOver;
     }
 
     void Draw2DRay(Vector2 startpos, Vector2 endpos)
