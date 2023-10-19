@@ -67,7 +67,7 @@ public class LaserObstacle : MonoBehaviour
 
     void ShootLaser()
     {
-        Debug.Log("In shoot update");
+        //Debug.Log("In shoot update");
         if (Physics2D.Raycast(m_transform.position, -transform.up))
         {
             RaycastHit2D _hit = Physics2D.Raycast(CCTVH.position, -transform.up);

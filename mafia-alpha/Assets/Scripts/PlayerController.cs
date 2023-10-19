@@ -39,10 +39,8 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        // Calculate the movement vector.
         Vector2 movement = new Vector2(horizontalInput, 0f) * moveSpeed;
 
-        // Apply the movement to the Rigidbody.
         rb.velocity = new Vector2(movement.x, rb.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.P) && keyObject != null && Vector2.Distance(transform.position, keyObject.transform.position) <= pullDistance)
@@ -108,78 +106,50 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnGUI()
+        private void OnGUI()
     {
         if (isGameWin)
         {
-            // Define the position and size of the "Game Over" message
-            Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50);
-
-            // Style for the message (font size, alignment, etc.)
-            GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = 24;
-            style.alignment = TextAnchor.MiddleCenter;
-
-            // Display the "Game Over" message
-            GUI.Label(gameOverRect, "YOU WIN!!", style);
-
-            if (gameManager != null)
-            {
-                // Define the position and size of the "Play Again" button
-                Rect buttonRect = new Rect(Screen.width / 2 - 50, Screen.height / 2 + 25, 100, 30);
-
-                // Check if the "Play Again" button is clicked
-                if (GUI.Button(buttonRect, "Play Again"))
-                {
-                    gameManager.RestartGame();
-                }
-            }
-            else
-            {
-                // Handle the case where gameManager is null (e.g., display an error message).
-                GUI.Label(new Rect(10, 10, 200, 30), "Error: GameManager not found.");
-            }
+            DisplayGameOverMessage("YOU WIN!!");
         }
 
-        if (isPlayerCrashPillar || isPlayerKilledByEnemy)
+        if (isPlayerCrashPillar)
         {
-            // Define the position and size of the "Game Over" message
-            Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50);
+            DisplayGameOverMessage("You crashed into the Pillar, YOU LOSE!!");
+        }
 
-            // Style for the message (font size, alignment, etc.)
-            GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = 14;
-            style.alignment = TextAnchor.MiddleCenter;
-
-            // Display the "Game Over" message
-            if (isPlayerCrashPillar)
-            {
-                GUI.Label(gameOverRect, "You crashed into the Pillar, YOU LOSE!!", style);
-            }
-
-            if (isPlayerKilledByEnemy)
-            {
-                GUI.Label(gameOverRect, "You were killed by the enemy, YOU LOSE!!", style);
-            }
-
-            if (gameManager != null)
-            {
-                // Define the position and size of the "Play Again" button
-                Rect buttonRect = new Rect(Screen.width / 2 - 50, Screen.height / 2 + 25, 100, 30);
-
-                // Check if the "Play Again" button is clicked
-                if (GUI.Button(buttonRect, "Play Again"))
-                {
-                    gameManager.RestartGame();
-                }
-            }
-            else
-            {
-                // Handle the case where gameManager is null (e.g., display an error message).
-                GUI.Label(new Rect(10, 10, 200, 30), "Error: GameManager not found.");
-            }
+        if (isPlayerKilledByEnemy)
+        {
+            DisplayGameOverMessage("You were killed by the enemy, YOU LOSE!!");
         }
     }
+
+    private void DisplayGameOverMessage(string message)
+    {
+        Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50);
+
+        GUIStyle style = new GUIStyle(GUI.skin.label);
+        style.fontSize = 14;
+        style.alignment = TextAnchor.MiddleCenter;
+
+        GUI.Label(gameOverRect, message, style);
+
+        if (gameManager != null)
+        {
+            Rect buttonRect = new Rect(Screen.width / 2 - 50, Screen.height / 2 + 25, 100, 30);
+
+            if (GUI.Button(buttonRect, "Play Again"))
+            {
+                gameManager.RestartGame();
+            }
+        }
+        else
+        {
+            // Handle the case where gameManager is null (e.g., display an error message).
+            GUI.Label(new Rect(10, 10, 200, 30), "Error: GameManager not found.");
+        }
+    }
+
 
 
 
