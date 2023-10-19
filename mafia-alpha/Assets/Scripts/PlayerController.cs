@@ -26,6 +26,10 @@ public class PlayerController : MonoBehaviour
         keyObject = GameObject.FindGameObjectWithTag("Key");
 
     }
+    public bool getHasKey()
+    {
+        return hasKey;
+    }
 
     public float getHorizontalInput()
     {

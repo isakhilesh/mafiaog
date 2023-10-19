@@ -40,11 +40,10 @@ public class ShapeShifter : MonoBehaviour
             Physics2D.gravity = -Physics2D.gravity;
             gravityChangeTime = Time.time; // Record the time of gravity change
             progressBarUpdate.StartDecreasing();
-
         }
 
-        // Check if it's time to return gravity to normal
-        if (progressBarUpdate.IsDecreasing() == false)
+            // Check if it's time to return gravity to normal
+            if (progressBarUpdate.IsDecreasing() == false)
         {
             Physics2D.gravity = originalGravity; // Restore the original gravity
         }
