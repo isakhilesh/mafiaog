@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private CircleSprite circleSprite;
 
+    private bool gameOver = false;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -71,11 +73,13 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Pillar") && !isPlayerCrashPillar)
         {
             isPlayerCrashPillar = true;
+            gameOver = true;
             gameManager.GameOver();
         }
         if (collision.gameObject.CompareTag("enemy") && !circleSprite.isCircle())
         {
             isPlayerKilledByEnemy = true;
+            gameOver = true;
             Time.timeScale = 0;
         }
         if (collision.gameObject.CompareTag("Key"))
@@ -86,6 +90,7 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.CompareTag("Door") && !isGameWin && hasKey)
         {
             isGameWin = true;
+            gameOver = true;
             gameManager.GameOver();
 
         }
@@ -106,21 +111,24 @@ public class PlayerController : MonoBehaviour
     }
 
 
-        private void OnGUI()
+       private void OnGUI()
     {
         if (isGameWin)
         {
             DisplayGameOverMessage("YOU WIN!!");
+            gameOver = true;
         }
 
         if (isPlayerCrashPillar)
         {
             DisplayGameOverMessage("You crashed into the Pillar, YOU LOSE!!");
+            gameOver = true;
         }
 
         if (isPlayerKilledByEnemy)
         {
             DisplayGameOverMessage("You were killed by the enemy, YOU LOSE!!");
+            gameOver = true;
         }
     }
 
@@ -150,7 +158,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    public bool isGameOver() {
+        return gameOver;
+    }
 
 
 }
