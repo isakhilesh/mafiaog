@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
         Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 400, 100);
 
         GUIStyle style = new GUIStyle(GUI.skin.label);
-        style.fontSize = 14;
+        style.fontSize = 24;
         style.alignment = TextAnchor.MiddleCenter;
 
         GUI.Label(gameOverRect, message, style);
