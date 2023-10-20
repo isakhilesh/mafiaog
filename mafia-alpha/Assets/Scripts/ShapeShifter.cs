@@ -22,6 +22,7 @@ public class ShapeShifter : MonoBehaviour
 
     private void Start()
     {
+        Physics2D.gravity = new Vector2(0.0f, -9.81f);
         originalScale = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
         originalGravity = Physics2D.gravity;
@@ -42,7 +43,15 @@ public class ShapeShifter : MonoBehaviour
             // Change the gravity direction to the opposite direction
             Physics2D.gravity = -Physics2D.gravity;
             gravityChangeTime = Time.time; // Record the time of gravity change
-            progressBarUpdate.StartDecreasing();
+            if (Physics2D.gravity.y < 0.0f)
+            {
+
+                progressBarUpdate.StartDecreasing(false);
+            }
+            else
+            {
+                progressBarUpdate.StartDecreasing(true);
+            }
         }
 
             // Check if it's time to return gravity to normal

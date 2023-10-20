@@ -51,9 +51,9 @@ public class ProgressBarUpdate : MonoBehaviour
         return currentTime;
     }
 
-    public void StartDecreasing()
+    public void StartDecreasing(bool decreasing)
     {
-        isDecreasing = !isDecreasing;
+        isDecreasing = decreasing;
     }
 
     public bool IsDecreasing()
