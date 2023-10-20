@@ -63,12 +63,9 @@ public class SendToGoogleForm : MonoBehaviour
 
         if ((playerController.isGameOver() == true || laserObstacle.isGameOver() == true || cctv.isGameOver() == true)  && flagGameOver)
         {
+            _totalTime = TimeSpan.FromTicks(DateTime.Now.Ticks - _startTime).TotalSeconds;
             Send();
             flagGameOver = false;
-        }
-        else
-        {
-            _totalTime += Time.deltaTime;
         }
 
         if (!Input.anyKey && playerController.isGameOver() == false)
