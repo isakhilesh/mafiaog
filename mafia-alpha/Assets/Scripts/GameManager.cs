@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
         gameIsOver = true;
     }
 
+    public bool isGameOver()
+    {
+        return gameIsOver;
+    }
+
     public void RestartGame()
     {
         Time.timeScale = 1;

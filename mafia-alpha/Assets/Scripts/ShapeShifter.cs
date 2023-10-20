@@ -10,6 +10,8 @@ public class ShapeShifter : MonoBehaviour
 
     private bool isRectangle = false;
 
+    private int rectCount = 0;
+   
     private float gravityChangeTime = 0.0f; // Variable to track time of gravity change
     public float gravityChangeDuration = 2.0f;
     public float moveSpeed = 5.0f; // Adjust this speed as needed
@@ -20,6 +22,7 @@ public class ShapeShifter : MonoBehaviour
 
     private void Start()
     {
+        Physics2D.gravity = new Vector2(0.0f, -9.81f);
         originalScale = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
         originalGravity = Physics2D.gravity;
@@ -31,6 +34,7 @@ public class ShapeShifter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            rectCount += 1;
             StartCoroutine(ShiftShapeCoroutine(true));
         }
 
@@ -39,12 +43,19 @@ public class ShapeShifter : MonoBehaviour
             // Change the gravity direction to the opposite direction
             Physics2D.gravity = -Physics2D.gravity;
             gravityChangeTime = Time.time; // Record the time of gravity change
-            progressBarUpdate.StartDecreasing();
+            if (Physics2D.gravity.y < 0.0f)
+            {
 
+                progressBarUpdate.StartDecreasing(false);
+            }
+            else
+            {
+                progressBarUpdate.StartDecreasing(true);
+            }
         }
 
-        // Check if it's time to return gravity to normal
-        if (progressBarUpdate.IsDecreasing() == false)
+            // Check if it's time to return gravity to normal
+            if (progressBarUpdate.IsDecreasing() == false)
         {
             Physics2D.gravity = originalGravity; // Restore the original gravity
         }
@@ -57,6 +68,10 @@ public class ShapeShifter : MonoBehaviour
 
     }
 
+    public int getRectcount()
+    {
+        return rectCount;
+    }
     private IEnumerator ShiftShapeCoroutine(bool toRectangle)
     {
         if (toRectangle)

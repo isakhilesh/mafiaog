@@ -4,7 +4,7 @@ public class Magnet : MonoBehaviour
 {
     public float attractionForce = 100f;
     public float attractionRadius = 5f;
-
+    private int magCount = 0;
     private bool magnetActive = false;
 
     private void FixedUpdate()
@@ -39,7 +39,15 @@ public class Magnet : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
+            magCount += 1;
             magnetActive = !magnetActive; // Toggle the magnet state
         }
     }
+
+    public int getMagCount()
+    {
+        return magCount/2;
+    }
+
+
 }

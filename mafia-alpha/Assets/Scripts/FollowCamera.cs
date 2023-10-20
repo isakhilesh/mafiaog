@@ -5,7 +5,7 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
     public Transform player; // Reference to the player's transform
-    public Vector3 offset = new Vector3(0f, 5f, -10f); // Offset to control the camera's position
+    public Vector3 offset = new Vector3(0f, 5f, -50f); // Offset to control the camera's position
 
     void Update()
     {

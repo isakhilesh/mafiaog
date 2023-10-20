@@ -10,6 +10,8 @@ TagManager:
   - Pillar
   - Key
   - Magnet
+  - LaserObstacle
+  - dog
   layers:
   - Default
   - TransparentFX
