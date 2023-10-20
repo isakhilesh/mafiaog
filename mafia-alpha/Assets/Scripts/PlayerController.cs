@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     public void DisplayGameOverMessage(string message)
     {
-        Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50);
+        Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 400, 100);
 
         GUIStyle style = new GUIStyle(GUI.skin.label);
         style.fontSize = 14;
@@ -152,8 +152,8 @@ public class PlayerController : MonoBehaviour
 
         if (gameManager != null)
         {
-            Rect buttonRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 100, 30);
-            Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 100, 30);
+            Rect buttonRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 60);
+            Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 200, 60);
 
             if (GUI.Button(buttonRect, "Play Again"))
             {
