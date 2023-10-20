@@ -8,14 +8,13 @@ public class SendToGoogleForm : MonoBehaviour
 {
     [SerializeField] private string URL;
     private double _sessionID;
-    private double _testInt;
-    private bool _testBool;
-    private float _testFloat;
+    private double _keyTime;
 
     public PlayerController playerController;
     public ShapeShifter shapeShifter;
     public CircleSprite circleSprite;
     public ProgressBarUpdate progressBarUpdate;
+    public Magnet magnet;
 
     public bool flag = true;
     public bool flagGameOver = true;
@@ -23,8 +22,13 @@ public class SendToGoogleForm : MonoBehaviour
     public LaserObstacle laserObstacle;
     public CCTV cctv;
 
-    private long _idleStartTime = 0;
     private double _totalIdleTime = 0;
+    private double _totalTime = 0;
+
+    private const string SessionIDKey = "SessionID";
+    private long _sessionCounter = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +39,10 @@ public class SendToGoogleForm : MonoBehaviour
         shapeShifter = GetComponent<ShapeShifter>();
         circleSprite = GetComponent<CircleSprite>();
         progressBarUpdate = GetComponent<ProgressBarUpdate>();
+        magnet = GameObject.FindObjectOfType<Magnet>();
 
-        _idleStartTime = DateTime.Now.Ticks;
         _totalIdleTime = 0;
+        _totalTime = 0;
     }
 
     private void Awake()
@@ -51,7 +56,7 @@ public class SendToGoogleForm : MonoBehaviour
     {
         if (playerController.getHasKey() && flag)
         {
-            _testInt = TimeSpan.FromTicks(DateTime.Now.Ticks - _startTime).TotalSeconds;
+            _keyTime = TimeSpan.FromTicks(DateTime.Now.Ticks - _startTime).TotalSeconds;
 
             flag = false;
         }
@@ -60,6 +65,10 @@ public class SendToGoogleForm : MonoBehaviour
         {
             Send();
             flagGameOver = false;
+        }
+        else
+        {
+            _totalTime += Time.deltaTime;
         }
 
         if (!Input.anyKey && playerController.isGameOver() == false)
@@ -73,33 +82,38 @@ public class SendToGoogleForm : MonoBehaviour
     {
         // Assign variables
         _sessionID = DateTime.Now.Ticks;
-        _testBool = true;
-        _testFloat = UnityEngine.Random.Range(0.0f, 10.0f);
 
-        if (_testInt == 0)
+        if (_keyTime == 0)
         {
-            _testInt = -1;
+            _keyTime = -20;
         }
 
         // Create a dictionary to store the form fields and values
         Dictionary<string, string> formData = new Dictionary<string, string>();
-        formData["entry.123182976"] = _sessionID.ToString(); // Replace 'entry.123456' with the actual form field name from your Google Form
+        //sessionID
+        //formData["entry.123182976"] = _sessionID.ToString();
+        formData["entry.123182976"] = GenerateOrderedSessionID().ToString();
+
         //TimetoKey
-        formData["entry.1350690521"] = _testInt.ToString();     // Replace 'entry.789012' with the actual form field name
+        formData["entry.1350690521"] = _keyTime.ToString();
+        
+        //totalTimeSurvived
+        formData["entry.16580158"] = _totalTime.ToString();
 
-
-        //Rectangle analytics
-        //formData["entry.462554948"] = shapeShifter.getRectcount().ToString();     // Replace 'entry.345678' with the actual form field name
-
-        //Circle analytics
-        //formData["entry.462554948"] = circleSprite.getCircount().ToString();     
+        //idleTime
+        formData["entry.1809734840"] = _totalIdleTime.ToString();
 
         //AntiGravity analysis
         formData["entry.462554948"] = progressBarUpdate.getTimeUsed().ToString();
 
+        //Rectangle analytics
+        formData["entry.475182497"] = shapeShifter.getRectcount().ToString();    
 
-        //idleTime
-        formData["entry.475182497"] = _totalIdleTime.ToString();    // Replace 'entry.901234' with the actual form field name
+        //Circle analytics
+        formData["entry.266303659"] = circleSprite.getCircount().ToString();     
+
+        //Magnet analytics
+        formData["entry.432883543"] = magnet.getMagCount().ToString();
 
         StartCoroutine(Post(URL, formData));
     }
@@ -126,5 +140,31 @@ public class SendToGoogleForm : MonoBehaviour
                 Debug.Log("Form upload complete!");
             }
         }
+    }
+
+    public long GenerateOrderedSessionID()
+    {
+        long currentTicks = DateTime.Now.Ticks;
+
+        // Retrieve the last session ID from PlayerPrefs
+        long lastSessionID = PlayerPrefs.GetInt(SessionIDKey, -1);
+
+        // If the current ticks are greater than or equal to the last session ID, increment the counter
+        if (currentTicks >= lastSessionID)
+        {
+            _sessionCounter++;
+        }
+        else
+        {
+            _sessionCounter = 0;
+        }
+
+        // Combine current ticks with the counter to ensure uniqueness
+        long orderedSessionID = currentTicks + _sessionCounter;
+
+        // Store the new session ID in PlayerPrefs
+        PlayerPrefs.SetInt(SessionIDKey, (int)orderedSessionID);
+
+        return orderedSessionID;
     }
 }

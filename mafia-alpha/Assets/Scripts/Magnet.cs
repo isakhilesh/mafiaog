@@ -44,5 +44,10 @@ public class Magnet : MonoBehaviour
         }
     }
 
-    
+    public int getMagCount()
+    {
+        return magCount/2;
+    }
+
+
 }
