@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
         keyObject = GameObject.FindGameObjectWithTag("Key");
         circleSprite = GetComponent<CircleSprite>(); // Assign the CircleSprite component here.
-        
+        Time.timeScale = 1; // Pause the game by setting the time scale to 0.
+
     }
     public bool getHasKey()
     {
@@ -145,21 +146,26 @@ public class PlayerController : MonoBehaviour
 
     public void DisplayGameOverMessage(string message)
     {
-        Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50);
+        Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 400, 100);
 
         GUIStyle style = new GUIStyle(GUI.skin.label);
-        style.fontSize = 14;
+        style.fontSize = 24;
         style.alignment = TextAnchor.MiddleCenter;
 
         GUI.Label(gameOverRect, message, style);
 
         if (gameManager != null)
         {
-            Rect buttonRect = new Rect(Screen.width / 2 - 50, Screen.height / 2 + 25, 100, 30);
+            Rect buttonRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 60);
+            Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 200, 60);
 
             if (GUI.Button(buttonRect, "Play Again"))
             {
                 gameManager.RestartGame();
+            }
+            if (GUI.Button(mainMenuRect, "Main Menu"))
+            {
+                SceneManager.LoadScene("Menu"); 
             }
         }
         else
