@@ -2111,6 +2111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractionForce: 50
   attractionRadius: 9
+  playerObject: {fileID: 503699894}
+  surroundingObjectPrefab: {fileID: 3765900259908608183, guid: 96540c2e91ec0e24db279310065bf82a, type: 3}
 --- !u!1 &749593720
 GameObject:
   m_ObjectHideFlags: 0
@@ -4936,6 +4938,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attractionForce: 500
   attractionRadius: 10
+  playerObject: {fileID: 503699894}
+  surroundingObjectPrefab: {fileID: 3765900259908608183, guid: 96540c2e91ec0e24db279310065bf82a, type: 3}
 --- !u!50 &2121326308
 Rigidbody2D:
   serializedVersion: 4
