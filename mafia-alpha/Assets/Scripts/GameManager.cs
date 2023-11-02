@@ -18,17 +18,18 @@ public class GameManager : MonoBehaviour
     {
         if (gameIsOver)
         {
-            // Check for user input to restart the game
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                RestartGame();
-            }
+            
         }
     }
 
     public void GameOver()
     {
         gameIsOver = true;
+    }
+
+    public bool isGameOver()
+    {
+        return gameIsOver;
     }
 
     public void RestartGame()

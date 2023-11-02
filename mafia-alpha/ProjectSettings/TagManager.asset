@@ -8,6 +8,14 @@ TagManager:
   - enemy
   - GameManager
   - Pillar
+  - Key
+  - Magnet
+  - LaserObstacle
+  - dog
+  - Red
+  - Blue
+  - Green
+  - Ring
   layers:
   - Default
   - TransparentFX
