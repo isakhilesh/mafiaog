@@ -744,10 +744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666567e2ccd2141b69b52f882c5b4d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionForce: 500
+  attractionForce: 2000
   attractionRadius: 9
-  playerObject: {fileID: 0}
-  surroundingObjectPrefab: {fileID: 0}
+  playerObject: {fileID: 1086439480}
+  surroundingObjectPrefab: {fileID: 853229354}
 --- !u!50 &416839186
 Rigidbody2D:
   serializedVersion: 4
@@ -2648,7 +2648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666567e2ccd2141b69b52f882c5b4d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attractionForce: 50
+  attractionForce: 2000
   attractionRadius: 9
   playerObject: {fileID: 1086439480}
   surroundingObjectPrefab: {fileID: 853229354}

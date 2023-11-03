@@ -10,7 +10,7 @@ public class SendToGoogleForm : MonoBehaviour
     private double _sessionID;
     private double _keyTime;
 
-    public PlayerController playerController;
+    public PlayerController_2 playerController;
     public ShapeShifter shapeShifter;
     public CircleSprite circleSprite;
     public ProgressBarUpdate progressBarUpdate;
@@ -37,7 +37,7 @@ public class SendToGoogleForm : MonoBehaviour
         // Call the Send method when the script starts
         cctv = GameObject.FindObjectOfType<CCTV>();
         laserObstacle = GameObject.FindObjectOfType<LaserObstacle>();
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController_2>();
         shapeShifter = GetComponent<ShapeShifter>();
         circleSprite = GetComponent<CircleSprite>();
         progressBarUpdate = GetComponent<ProgressBarUpdate>();

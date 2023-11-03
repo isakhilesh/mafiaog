@@ -50,7 +50,7 @@ public class Legend : MonoBehaviour
         style.alignment = TextAnchor.MiddleCenter;
         style.normal.textColor = Color.black;
         GUI.backgroundColor = Color.yellow;
-        GUI.Label(gameOverRect,"Space Bar : Anti-Gravity \nDown Arrow : Shrink \nUp Arrow : Grow and Destroy \nM Key : Activate Magnet ", style);
+        GUI.Label(gameOverRect,"Goal: Collect the Key and reach the door\nSpace Bar : Anti-Gravity \nDown Arrow : Shrink \nUp Arrow : Grow and Destroy \nM Key : Activate Magnet ", style);
 
         }
     }

@@ -17,7 +17,7 @@ public class ShapeShifter : MonoBehaviour
     public float moveSpeed = 5.0f; // Adjust this speed as needed
 
 
-    private PlayerController playerController;
+    private PlayerController_2 playerController;
     private ProgressBarUpdate progressBarUpdate;
 
     private void Start()
@@ -26,7 +26,7 @@ public class ShapeShifter : MonoBehaviour
         originalScale = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
         originalGravity = Physics2D.gravity;
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController_2>();
         progressBarUpdate = GetComponent<ProgressBarUpdate>();
     }
 
