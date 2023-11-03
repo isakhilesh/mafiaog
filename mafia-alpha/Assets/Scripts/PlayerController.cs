@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     public void DisplayGameOverMessage(string message)
     {
-        Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 400, 100);
+        /*Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 400, 100);
 
         GUIStyle style = new GUIStyle(GUI.skin.label);
         style.fontSize = 24;
@@ -168,6 +168,40 @@ public class PlayerController : MonoBehaviour
         {
             // Handle the case where gameManager is null (e.g., display an error message).
             GUI.Label(new Rect(10, 10, 200, 30), "Error: GameManager not found.");
+        }
+        */
+        if (isGameWin)
+        {
+            SceneManager.LoadScene("SecondLevel");
+        }
+        else
+        {
+            Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 400, 100);
+            GUIStyle style = new GUIStyle(GUI.skin.label);
+            style.fontSize = 24;
+            style.alignment = TextAnchor.MiddleCenter;
+
+            GUI.Label(gameOverRect, message, style);
+
+            if (gameManager != null)
+            {
+                Rect buttonRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 60);
+                Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 200, 60);
+
+                if (GUI.Button(buttonRect, "Play Again"))
+                {
+                    gameManager.RestartGame();
+                }
+                if (GUI.Button(mainMenuRect, "Main Menu"))
+                {
+                    SceneManager.LoadScene("Menu");
+                }
+            }
+            else
+            {
+                // Handle the case where gameManager is null (e.g., display an error message).
+                GUI.Label(new Rect(10, 10, 200, 30), "Error: GameManager not found.");
+            }
         }
     }
 

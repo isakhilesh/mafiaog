@@ -24,7 +24,7 @@ public class CircleSprite : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             cirCount += 1;
             isCircle = true;
@@ -48,16 +48,17 @@ public class CircleSprite : MonoBehaviour
         {
             // Switch to a circle
 
-            float circleScale = Mathf.Max(originalScale.x, originalScale.y);
-            transform.localScale = new Vector3(circleScale, circleScale, originalScale.z);
-            spriteRenderer.sprite = circleSprite;
+            //float circleScale = Mathf.Max(originalScale.x, originalScale.y);
+            //transform.localScale = new Vector3(circleScale, circleScale, originalScale.z);
+            transform.localScale = new Vector3(0.5875977f, 0.5020664f, originalScale.z);
+            //spriteRenderer.sprite = circleSprite;
             isSquare = false; 
         }
         else
         {
             // Switch back to a square
             transform.localScale = originalScale;
-            spriteRenderer.sprite = squareSprite;
+            //spriteRenderer.sprite = squareSprite;
         }
 
 
@@ -85,7 +86,7 @@ public class CircleSprite : MonoBehaviour
         if (!isSquare)
         {
             transform.localScale = originalScale;
-            spriteRenderer.sprite = squareSprite;
+            //spriteRenderer.sprite = squareSprite;
             isSquare = true;
         }
     }

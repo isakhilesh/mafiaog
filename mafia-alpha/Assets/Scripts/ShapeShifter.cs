@@ -32,7 +32,7 @@ public class ShapeShifter : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             rectCount += 1;
             StartCoroutine(ShiftShapeCoroutine(true));

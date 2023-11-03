@@ -15,6 +15,8 @@ public class SendToGoogleForm : MonoBehaviour
     public CircleSprite circleSprite;
     public ProgressBarUpdate progressBarUpdate;
     public Magnet magnet;
+    public Legend legend;
+    private int magCount = 0;
 
     public bool flag = true;
     public bool flagGameOver = true;
@@ -40,6 +42,7 @@ public class SendToGoogleForm : MonoBehaviour
         circleSprite = GetComponent<CircleSprite>();
         progressBarUpdate = GetComponent<ProgressBarUpdate>();
         magnet = GameObject.FindObjectOfType<Magnet>();
+        legend = GameObject.FindObjectOfType<Legend>();
 
         _totalIdleTime = 0;
         _totalTime = 0;
@@ -54,6 +57,10 @@ public class SendToGoogleForm : MonoBehaviour
     }
     private void Update()
     {
+         if (Input.GetKeyDown(KeyCode.M))
+        {
+            magCount += 1;
+        }
         if (playerController.getHasKey() && flag)
         {
             _keyTime = TimeSpan.FromTicks(DateTime.Now.Ticks - _startTime).TotalSeconds;
@@ -70,7 +77,6 @@ public class SendToGoogleForm : MonoBehaviour
 
         if (!Input.anyKey && playerController.isGameOver() == false)
         {
-            Debug.Log("idle!");
             _totalIdleTime += Time.deltaTime;
         }
     }
@@ -94,8 +100,8 @@ public class SendToGoogleForm : MonoBehaviour
         //TimetoKey
         formData["entry.1350690521"] = _keyTime.ToString();
         
-        //totalTimeSurvived
-        formData["entry.16580158"] = _totalTime.ToString();
+        //legendReferred
+        formData["entry.16580158"] = legend.getTabCount().ToString();
 
         //idleTime
         formData["entry.1809734840"] = _totalIdleTime.ToString();
@@ -110,7 +116,8 @@ public class SendToGoogleForm : MonoBehaviour
         formData["entry.266303659"] = circleSprite.getCircount().ToString();     
 
         //Magnet analytics
-        formData["entry.432883543"] = magnet.getMagCount().ToString();
+        // formData["entry.432883543"] = magnet.getMagCount().ToString();
+        formData["entry.432883543"] = (magCount/2).ToString();
 
         StartCoroutine(Post(URL, formData));
     }
