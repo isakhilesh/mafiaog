@@ -8,6 +8,7 @@ public class Legend : MonoBehaviour
     public GameObject panel; // Reference to the UI Panel (should include the text as a child)
 
     private bool isInstructionsVisible = false;
+    private int tabCount = 0;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class Legend : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            tabCount+=1;
             isInstructionsVisible = !isInstructionsVisible;
 
             if (isInstructionsVisible)
@@ -31,6 +33,11 @@ public class Legend : MonoBehaviour
                 Time.timeScale = 1.0f; // Unpause the game
             }
         }
+    }
+
+    public int getTabCount()
+    {
+        return tabCount/2;
     }
 
     private void OnGUI(){
