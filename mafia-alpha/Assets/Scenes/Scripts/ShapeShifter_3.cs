@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShapeShifter : MonoBehaviour
+public class ShapeShifter_3 : MonoBehaviour
 {
     private Vector3 originalScale;
     private Rigidbody2D rb;
@@ -11,13 +11,13 @@ public class ShapeShifter : MonoBehaviour
     private bool isRectangle = false;
 
     private int rectCount = 0;
-   
+
     private float gravityChangeTime = 0.0f; // Variable to track time of gravity change
     public float gravityChangeDuration = 2.0f;
     public float moveSpeed = 5.0f; // Adjust this speed as needed
 
 
-    private PlayerController_2 playerController;
+    private PlayerController_3 playerController;
     private ProgressBarUpdate progressBarUpdate;
 
     private void Start()
@@ -26,7 +26,7 @@ public class ShapeShifter : MonoBehaviour
         originalScale = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
         originalGravity = Physics2D.gravity;
-        playerController = GetComponent<PlayerController_2>();
+        playerController = GetComponent<PlayerController_3>();
         progressBarUpdate = GetComponent<ProgressBarUpdate>();
     }
 
@@ -54,8 +54,8 @@ public class ShapeShifter : MonoBehaviour
             }
         }
 
-            // Check if it's time to return gravity to normal
-            if (progressBarUpdate.IsDecreasing() == false)
+        // Check if it's time to return gravity to normal
+        if (progressBarUpdate.IsDecreasing() == false)
         {
             Physics2D.gravity = originalGravity; // Restore the original gravity
         }
@@ -64,7 +64,7 @@ public class ShapeShifter : MonoBehaviour
         Vector2 moveDirection = new Vector2(horizontalInput, 0);
 
         rb.AddForce(moveDirection * moveSpeed);
-        
+
 
     }
 
@@ -79,7 +79,7 @@ public class ShapeShifter : MonoBehaviour
             transform.localScale = new Vector3(0.3875977f, 0.1020664f, originalScale.z);
             isRectangle = true;
         }
-       
+
 
         yield return new WaitForSeconds(3);
 

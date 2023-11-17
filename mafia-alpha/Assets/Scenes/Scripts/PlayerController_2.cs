@@ -100,6 +100,7 @@ public class PlayerController_2 : MonoBehaviour
         {
             isGameWin = true;
             gameOver = true;
+            DisplayGameOverMessage("");
             gameManager.GameOver();
 
         }
@@ -111,6 +112,7 @@ public class PlayerController_2 : MonoBehaviour
         {
             isGameWin = true;
             Time.timeScale = 0; // Pause the game by setting the time scale to 0.
+            DisplayGameOverMessage("");
         }
         if (collision.CompareTag("Pillar"))
         {
@@ -171,7 +173,29 @@ public class PlayerController_2 : MonoBehaviour
             GUI.Label(new Rect(10, 10, 200, 30), "Error: GameManager not found.");
         }
         */
-        SceneManager.LoadScene("ThirdLevel");
+        if(isGameWin)
+        {
+            Debug.Log("In win");
+            SceneManager.LoadScene("ThirdLevel");
+        }
+        else
+        {
+            if (gameManager != null)
+            {
+                Rect buttonRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 60);
+                Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 200, 60);
+
+                if (GUI.Button(buttonRect, "Play Again"))
+                {
+                    gameManager.RestartGame();
+                }
+                if (GUI.Button(mainMenuRect, "Main Menu"))
+                {
+                    SceneManager.LoadScene("Menu");
+                }
+            }
+        }
+      
     }
 
     public bool isGameOver()

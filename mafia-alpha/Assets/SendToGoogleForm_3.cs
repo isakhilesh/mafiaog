@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class SendToGoogleForm : MonoBehaviour
+public class SendToGoogleForm_3 : MonoBehaviour
 {
     [SerializeField] private string URL;
     private double _sessionID;
     private double _keyTime;
 
-    public PlayerController_2 playerController;
+    public PlayerController_3 playerController;
     public ShapeShifter shapeShifter;
     public CircleSprite circleSprite;
     public ProgressBarUpdate progressBarUpdate;
@@ -37,7 +37,7 @@ public class SendToGoogleForm : MonoBehaviour
         // Call the Send method when the script starts
         cctv = GameObject.FindObjectOfType<CCTV>();
         laserObstacle = GameObject.FindObjectOfType<LaserObstacle>();
-        playerController = GetComponent<PlayerController_2>();
+        playerController = GetComponent<PlayerController_3>();
         shapeShifter = GetComponent<ShapeShifter>();
         circleSprite = GetComponent<CircleSprite>();
         progressBarUpdate = GetComponent<ProgressBarUpdate>();
@@ -57,7 +57,7 @@ public class SendToGoogleForm : MonoBehaviour
     }
     private void Update()
     {
-         if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             magCount += 1;
         }
@@ -68,7 +68,7 @@ public class SendToGoogleForm : MonoBehaviour
             flag = false;
         }
 
-        if ((playerController.isGameOver() == true || laserObstacle.isGameOver() == true || cctv.isGameOver() == true)  && flagGameOver)
+        if ((playerController.isGameOver() == true || laserObstacle.isGameOver() == true || cctv.isGameOver() == true) && flagGameOver)
         {
             _totalTime = TimeSpan.FromTicks(DateTime.Now.Ticks - _startTime).TotalSeconds;
             Send();
@@ -99,7 +99,7 @@ public class SendToGoogleForm : MonoBehaviour
 
         //TimetoKey
         formData["entry.1350690521"] = _keyTime.ToString();
-        
+
         //legendReferred
         formData["entry.16580158"] = legend.getTabCount().ToString();
 
@@ -110,14 +110,14 @@ public class SendToGoogleForm : MonoBehaviour
         formData["entry.462554948"] = progressBarUpdate.getTimeUsed().ToString();
 
         //Rectangle analytics
-        formData["entry.475182497"] = shapeShifter.getRectcount().ToString();    
+        formData["entry.475182497"] = shapeShifter.getRectcount().ToString();
 
         //Circle analytics
-        formData["entry.266303659"] = circleSprite.getCircount().ToString();     
+        formData["entry.266303659"] = circleSprite.getCircount().ToString();
 
         //Magnet analytics
         // formData["entry.432883543"] = magnet.getMagCount().ToString();
-        formData["entry.432883543"] = (magCount/2).ToString();
+        formData["entry.432883543"] = (magCount / 2).ToString();
 
         StartCoroutine(Post(URL, formData));
     }
