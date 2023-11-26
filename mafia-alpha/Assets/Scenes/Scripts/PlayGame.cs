@@ -17,13 +17,24 @@ public class PlayGame : MonoBehaviour
         
     }
 
-    public void startGame()
+    public void levelOne()
     {
-        SceneManager.LoadScene("SampleScene"); 
+        SceneManager.LoadScene("FirstLevel"); 
     }
 
-    public void stratTutorial()
+    public void levelTwo()
     {
-        SceneManager.LoadScene("TutorialScene");
+        SceneManager.LoadScene("SecondLevel"); 
     }
+
+    public void levelThree()
+    {
+        SceneManager.LoadScene("ThirdLevel"); 
+    }
+
+    public void levelFour()
+    {
+        SceneManager.LoadScene("FourthLevel"); 
+    }
+
 }
