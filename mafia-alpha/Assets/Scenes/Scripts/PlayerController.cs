@@ -178,24 +178,27 @@ public class PlayerController : MonoBehaviour
         {
             Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 400, 100);
             GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = 24;
+            style.fontSize = Mathf.RoundToInt(Screen.height * 0.035f);
             style.alignment = TextAnchor.MiddleCenter;
 
             GUI.Label(gameOverRect, message, style);
 
             if (gameManager != null)
             {
-                Rect buttonRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 60);
-                Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 200, 60);
+                GUILayout.BeginHorizontal();
 
-                if (GUI.Button(buttonRect, "Play Again"))
+               
+
+                if (GUILayout.Button("Play Again", GUILayout.ExpandWidth(true)))
                 {
                     gameManager.RestartGame();
                 }
-                if (GUI.Button(mainMenuRect, "Main Menu"))
+                if (GUILayout.Button("Main Menu", GUILayout.ExpandWidth(true)))
                 {
                     SceneManager.LoadScene("Menu");
                 }
+
+                GUILayout.EndHorizontal();
             }
             else
             {

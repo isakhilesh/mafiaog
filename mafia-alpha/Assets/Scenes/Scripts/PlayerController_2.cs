@@ -180,19 +180,30 @@ public class PlayerController_2 : MonoBehaviour
         }
         else
         {
+            Rect gameOverRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 50, 400, 100); // Adjusted position and size
+            GUIStyle style = new GUIStyle(GUI.skin.label);
+            style.fontSize = Mathf.RoundToInt(Screen.height * 0.035f);
+            style.alignment = TextAnchor.MiddleCenter;
+
+
             if (gameManager != null)
             {
-                Rect buttonRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 60);
-                Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 200, 60);
+                Time.timeScale = 0; // Pause the game
 
-                if (GUI.Button(buttonRect, "Play Again"))
+                GUILayout.BeginHorizontal(); // Use a vertical layout to center the buttons
+
+                if (GUILayout.Button("Play Again", GUILayout.ExpandWidth(true), GUILayout.Height(60)))
                 {
                     gameManager.RestartGame();
+                    Time.timeScale = 1; // Resume the game
                 }
-                if (GUI.Button(mainMenuRect, "Main Menu"))
+
+                if (GUILayout.Button("Main Menu", GUILayout.ExpandWidth(true), GUILayout.Height(60)))
                 {
                     SceneManager.LoadScene("Menu");
                 }
+
+                GUILayout.EndHorizontal();
             }
         }
       
