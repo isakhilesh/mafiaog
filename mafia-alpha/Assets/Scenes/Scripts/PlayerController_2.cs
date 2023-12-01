@@ -180,30 +180,32 @@ public class PlayerController_2 : MonoBehaviour
         }
         else
         {
-            Rect gameOverRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 - 50, 400, 100); // Adjusted position and size
+            //Rect gameOverRect = new Rect(Screen.width / 2 - 200, Screen.height / 2- 50, 400, 100); // Adjusted position and size
+            //GUIStyle style = new GUIStyle(GUI.skin.label);
+            //style.fontSize = Mathf.RoundToInt(Screen.height * 0.035f);
+            //style.alignment = TextAnchor.MiddleCenter;
+
+
+            Rect gameOverRect = new Rect(Screen.width / 2 - 300, Screen.height / 2 - 50, 700, 100);
             GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = Mathf.RoundToInt(Screen.height * 0.035f);
+            style.fontSize = 24;
             style.alignment = TextAnchor.MiddleCenter;
 
+            GUI.Label(gameOverRect, message, style);
 
             if (gameManager != null)
             {
-                Time.timeScale = 0; // Pause the game
+                Rect buttonRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 + 25, 200, 60);
+                Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 200, 60);
 
-                GUILayout.BeginHorizontal(); // Use a vertical layout to center the buttons
-
-                if (GUILayout.Button("Play Again", GUILayout.ExpandWidth(true), GUILayout.Height(60)))
+                if (GUI.Button(buttonRect, "Play Again"))
                 {
                     gameManager.RestartGame();
-                    Time.timeScale = 1; // Resume the game
                 }
-
-                if (GUILayout.Button("Main Menu", GUILayout.ExpandWidth(true), GUILayout.Height(60)))
+                if (GUI.Button(mainMenuRect, "Main Menu"))
                 {
                     SceneManager.LoadScene("Menu");
                 }
-
-                GUILayout.EndHorizontal();
             }
         }
       

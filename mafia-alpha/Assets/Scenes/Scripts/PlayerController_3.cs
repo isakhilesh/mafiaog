@@ -179,7 +179,7 @@ public class PlayerController_3 : MonoBehaviour
         }
         else
         {
-            Rect gameOverRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 400, 100);
+            Rect gameOverRect = new Rect(Screen.width / 2 - 300, Screen.height / 2 - 50, 700, 100);
             GUIStyle style = new GUIStyle(GUI.skin.label);
             style.fontSize = 24;
             style.alignment = TextAnchor.MiddleCenter;
@@ -188,7 +188,7 @@ public class PlayerController_3 : MonoBehaviour
 
             if (gameManager != null)
             {
-                Rect buttonRect = new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 60);
+                Rect buttonRect = new Rect(Screen.width / 2 - 200, Screen.height / 2 + 25, 200, 60);
                 Rect mainMenuRect = new Rect(Screen.width / 2 + 5, Screen.height / 2 + 25, 200, 60);
 
                 if (GUI.Button(buttonRect, "Play Again"))
